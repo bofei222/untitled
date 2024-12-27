@@ -1,0 +1,26 @@
+project(untitled)
+
+find_package(Arrow REQUIRED)
+find_package(ArrowAcero REQUIRED)
+find_package(Parquet REQUIRED)
+
+
+
+
+
+add_executable(untitled ${PROJECT_SOURCE_DIR}/src/sequence_plan.cpp
+        sequence_plan.cpp
+        include/sequence_plan.h)
+#add_executable(untitled ${PROJECT_SOURCE_DIR}/src/simple_acero.cc)
+
+#include_directories(${PROJECT_SOURCE_DIR}/cpp)
+#target_include_directories(main PRIVATE ${PROJECT_SOURCE_DIR}/cpp)
+
+
+
+target_link_libraries(untitled PRIVATE   arrow_acero parquet arrow)
+
+
+#add_definitions("-Wall -g")
+
+# cmake .. -DCMAKE_CXX_COMPILER=`which g++` -DCMAKE_C_COMPILER=`which gcc`

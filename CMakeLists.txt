@@ -1,5 +1,5 @@
 project(untitled)
-
+set(CMAKE_CXX_STANDARD 20)
 find_package(Arrow REQUIRED)
 find_package(ArrowAcero REQUIRED)
 find_package(Parquet REQUIRED)
@@ -7,17 +7,5 @@ find_package(Parquet REQUIRED)
 
 
 
-
-add_executable(untitled ${PROJECT_SOURCE_DIR}/src/simple_acero.cc)
-
-#include_directories(${PROJECT_SOURCE_DIR}/cpp)
-#target_include_directories(main PRIVATE ${PROJECT_SOURCE_DIR}/cpp)
-
-
-
-target_link_libraries(untitled PRIVATE   arrow_acero parquet arrow)
-
-
-#add_definitions("-Wall -g")
-
-# cmake .. -DCMAKE_CXX_COMPILER=`which g++` -DCMAKE_C_COMPILER=`which gcc`
+include_directories(${PROJECT_SOURCE_DIR}/include)
+add_library(lib1 SHARED ${CMAKE_CURRENT_SOURCE_DIR}/src/sequence_plan.cpp)

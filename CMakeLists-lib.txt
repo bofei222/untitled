@@ -8,4 +8,4 @@ find_package(Parquet REQUIRED)
 
 
 include_directories(${PROJECT_SOURCE_DIR}/include)
-add_library(lib1 SHARED ${CMAKE_CURRENT_SOURCE_DIR}/src/sequence_plan.cpp)
+add_library(lib3 SHARED ${CMAKE_CURRENT_SOURCE_DIR}/example/example_wrap.cxx ${CMAKE_CURRENT_SOURCE_DIR}/example/example.cpp)

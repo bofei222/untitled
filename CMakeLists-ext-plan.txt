@@ -1,0 +1,18 @@
+project(untitled)
+
+find_package(Arrow REQUIRED)
+find_package(ArrowAcero REQUIRED)
+find_package(Parquet REQUIRED)
+
+
+include_directories(${PROJECT_SOURCE_DIR}/include)
+
+#add_executable(untitled ${PROJECT_SOURCE_DIR}/src/simple_acero.cc)
+add_executable(untitled ${PROJECT_SOURCE_DIR}/
+        sequence_plan.cpp
+        main.cpp)
+
+target_link_libraries(untitled PRIVATE   arrow_acero parquet arrow)
+
+
+

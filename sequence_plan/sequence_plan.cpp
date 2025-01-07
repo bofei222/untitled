@@ -1,12 +1,11 @@
+#include "sequence_plan.h"
 
 #include <iostream>
-
 #include <arrow/acero/api.h>    // plans and nodes
 #include <arrow/compute/api.h>  // field refs and exprs
 #include <arrow/io/api.h>       // ReadableFile
 #include <arrow/api.h>
 #include <arrow/result.h>
-#include <arrow/status.h>
 #include <arrow/table.h>
 #include <parquet/arrow/reader.h>
 
@@ -14,8 +13,7 @@ namespace aio = ::arrow::io;
 namespace cp = ::arrow::compute;
 namespace ac = ::arrow::acero;
 
-
-arrow::Status sequence_plan(std::string path) {
+arrow::Status sequence_plan(const std::string& path) {
   auto* pool = arrow::default_memory_pool();
   ARROW_ASSIGN_OR_RAISE(auto input, aio::ReadableFile::Open(path));
 
@@ -44,13 +42,8 @@ arrow::Status sequence_plan(std::string path) {
                                    {"hash_list", nullptr, "species", "species_list"},
                                    {"hash_mean", nullptr, "height", "avg_height"}}},
                                  {"homeworld"})}});
-  
+
   ARROW_ASSIGN_OR_RAISE(auto result, ac::DeclarationToTable(std::move(plan)));
   std::cout << "Results: " << result->ToString() << std::endl;
   return arrow::Status::OK();
-}
-
-int main(int argc, char** argv) {
-
-  ARROW_UNUSED(sequence_plan("../../sample_data/starwars.parquet"));
 }

@@ -2,8 +2,8 @@
 #define SEQUENCE_PLAN_H
 
 #include <string>
-#include <arrow/status.h>
 
-arrow::Status sequence_plan(const std::string& path);
+// 修改返回类型为 int
+int sequence_plan(const std::string& path);
 
-#endif  // SEQUENCE_PLAN_H
+#endif // SEQUENCE_PLAN_H

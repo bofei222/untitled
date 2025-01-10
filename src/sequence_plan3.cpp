@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include <arrow/acero/api.h>    // plans and nodes
 #include <arrow/compute/api.h>  // field refs and exprs
@@ -8,6 +9,28 @@
 #include <parquet/arrow/reader.h>
 
 int sequence_plan(const std::string& path) {
+  auto* pool = arrow::default_memory_pool();
+
+  // Step 1: Open the file
+  auto input_status = arrow::io::ReadableFile::Open(path);
+  if (!input_status.ok()) {
+    return -1; // Error code -1: Failed to open file
+  }
+  auto input = std::move(input_status).ValueOrDie();  // Get the file handle
+
+  // Step 2: Open the Parquet file
+  std::unique_ptr<parquet::arrow::FileReader> arrow_reader;
+  auto open_file_status = parquet::arrow::OpenFile(input, pool, &arrow_reader);
+  if (!open_file_status.ok()) {
+    return -2; // Error code -2: Failed to open Parquet file
+  }
+
+  // Step 3: Get RecordBatchReader
+  std::unique_ptr<arrow::RecordBatchReader> rdr;
+  auto record_batch_status = arrow_reader->GetRecordBatchReader(&rdr);
+  if (!record_batch_status.ok()) {
+    return -3; // Error code -3: Failed to get RecordBatchReader
+  }
 
   // Step 4: Build exclusions
   arrow::StringBuilder excl_bldr;
@@ -61,4 +84,13 @@ int sequence_plan(const std::string& path) {
   std::cout << "Results: " << result->ToString() << std::endl;
 
   return 0; // Success
+}
+
+
+
+
+int main(int argc, char** argv) {
+  int plan = sequence_plan("/home/bf/CLionProjects/sample_data/starwars.parquet");
+  //  print plan
+  std::cout << "Plan: " << plan << std::endl;
 }

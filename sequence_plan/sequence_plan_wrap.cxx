@@ -226,23 +226,28 @@ static void* Swig_malloc(int c) {
 }
 
 
-#include "sequence_plan.h"
+#include "sequence_plan.h"  // 包含要包装的头文件
+#include <iostream>
+#include <arrow/acero/api.h>    // plans and nodes
+#include <arrow/compute/api.h>  // field refs and exprs
+#include <arrow/io/api.h>       // ReadableFile
 #include <arrow/api.h>
-#include <arrow/compute/api.h>
-#include <arrow/io/api.h>
+#include <arrow/result.h>
+#include <arrow/table.h>
 #include <parquet/arrow/reader.h>
 
 
-using namespace arrow;  // 引入 Arrow C++ 库
-using namespace arrow::compute;
-using namespace arrow::io;
-using namespace parquet::arrow;
+
+#include <string>
+
+
+int sequence_plan(const std::string& path);
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-void _wrap_Swig_free_sequence_plan_cf3ffe6c51d58a20(void *_swig_go_0) {
+void _wrap_Swig_free_sequence_plan_4d4f36d573574039(void *_swig_go_0) {
   void *arg1 = (void *) 0 ;
   
   arg1 = *(void **)&_swig_go_0; 
@@ -252,7 +257,7 @@ void _wrap_Swig_free_sequence_plan_cf3ffe6c51d58a20(void *_swig_go_0) {
 }
 
 
-void *_wrap_Swig_malloc_sequence_plan_cf3ffe6c51d58a20(intgo _swig_go_0) {
+void *_wrap_Swig_malloc_sequence_plan_4d4f36d573574039(intgo _swig_go_0) {
   int arg1 ;
   void *result = 0 ;
   void *_swig_go_result;
@@ -265,15 +270,18 @@ void *_wrap_Swig_malloc_sequence_plan_cf3ffe6c51d58a20(intgo _swig_go_0) {
 }
 
 
-arrow::Status *_wrap_sequence_plan_sequence_plan_cf3ffe6c51d58a20(std::string *_swig_go_0) {
+intgo _wrap_sequence_plan_sequence_plan_4d4f36d573574039(_gostring_ _swig_go_0) {
   std::string *arg1 = 0 ;
-  arrow::Status result;
-  arrow::Status *_swig_go_result;
+  int result;
+  intgo _swig_go_result;
   
-  arg1 = *(std::string **)&_swig_go_0; 
   
-  result = sequence_plan((std::string const &)*arg1);
-  *(arrow::Status **)&_swig_go_result = new arrow::Status(result); 
+  std::string arg1_str(_swig_go_0.p, _swig_go_0.n);
+  arg1 = &arg1_str;
+  
+  
+  result = (int)sequence_plan((std::string const &)*arg1);
+  _swig_go_result = result; 
   return _swig_go_result;
 }
 

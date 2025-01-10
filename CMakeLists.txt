@@ -7,10 +7,13 @@ find_package(Parquet REQUIRED)
 
 include_directories(${PROJECT_SOURCE_DIR}/include)
 
-add_executable(untitled2 ${PROJECT_SOURCE_DIR}/
-        src/sequence_plan2.cpp)
+add_executable(example ${PROJECT_SOURCE_DIR}/
 
-target_link_libraries(untitled2 PRIVATE   arrow_acero parquet arrow)
+        src_share_point/example.cpp
+        src_share_point/main.c
+)
+
+target_link_libraries(example PRIVATE arrow_acero parquet arrow)
 
 
 
